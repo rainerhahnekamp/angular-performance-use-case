@@ -3,7 +3,7 @@ import { ElementRef, inject, Injectable, NgZone } from '@angular/core';
 @Injectable({ providedIn: 'root' })
 export class CdHighlighter {
   ngZone = inject(NgZone);
-  disabled = false;
+  disabled = true;
 
   run(el: ElementRef) {
     if (this.disabled) {

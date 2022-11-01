@@ -64,7 +64,7 @@ export class Collector {
       timestamp: now,
     };
 
-    this.#logger.info(`emit ${measurement}`);
+    console.log('emitting: %o', measurement);
     this.#measurements$.next(measurement);
   }
 }
