@@ -1,7 +1,7 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { Collector } from './collector';
 import { CardMeasurement, MetricCardComponent } from './metric-card.component';
-import { filter, map, Observable } from 'rxjs';
+import { filter, map, Observable, startWith } from 'rxjs';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { BaseComponent } from './base.component';
 
@@ -23,11 +23,7 @@ export class MetricContainerComponent extends BaseComponent implements OnInit {
   #collector = inject(Collector);
 
   measurement$: Observable<CardMeasurement> | undefined;
-  measurement: CardMeasurement = {
-    value: NaN,
-    date: new Date(),
-    name: this.name,
-  };
+  measurement: CardMeasurement | undefined;
 
   ngOnInit(): void {
     if (this.name === '') {
@@ -36,6 +32,11 @@ export class MetricContainerComponent extends BaseComponent implements OnInit {
 
     this.#collector.measurements$
       .pipe(
+        startWith({
+          value: NaN,
+          timestamp: new Date().getTime(),
+          name: this.name,
+        }),
         filter((measurement) => measurement.name === this.name),
         map((measurement) => ({
           ...measurement,

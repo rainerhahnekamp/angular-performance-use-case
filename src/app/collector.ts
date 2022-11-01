@@ -1,17 +1,16 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, NgZone } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Measurement } from './measurement';
 import { METERS } from './meters';
 import { Meter } from './meter';
-import { Logger } from './logger.service';
 
 @Injectable({ providedIn: 'root' })
 export class Collector {
   readonly lastRuns = new Map<string, number>();
   hertz = 10;
 
-  #meters = inject(METERS); //.filter((meter) => meter.name === 'USV');
-  #logger = inject(Logger);
+  #ngZone = inject(NgZone);
+  #meters = inject(METERS);
   #measurements$ = new Subject<Measurement>();
   status: 'stopped' | 'running' = 'stopped';
   #intervalId = 0;
