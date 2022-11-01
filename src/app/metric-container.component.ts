@@ -1,16 +1,15 @@
-import { Component, ElementRef, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { Collector } from './collector';
 import { CardMeasurement, MetricCardComponent } from './metric-card.component';
 import { filter, map, Observable } from 'rxjs';
 import { AsyncPipe, NgIf } from '@angular/common';
-import { Measurement } from './meaurement';
-import { CdHighlighter } from './cd-hightlighter.service';
+import { BaseComponent } from './base.component';
 
 @Component({
   selector: 'app-metric-container',
   template: `
     <div *ngIf="measurement" class="p-4">
-      {{ cdCheck() }}
+      {{ hightlightCd() }}
       <h3 class="text-lg font-medium">{{ name }}</h3>
       <app-metric-card [measurement]="measurement"></app-metric-card>
     </div>
@@ -18,12 +17,10 @@ import { CdHighlighter } from './cd-hightlighter.service';
   standalone: true,
   imports: [MetricCardComponent, NgIf, AsyncPipe],
 })
-export class MetricContainerComponent implements OnInit {
+export class MetricContainerComponent extends BaseComponent implements OnInit {
   @Input() name = '';
 
   #collector = inject(Collector);
-  #el = inject(ElementRef);
-  #cdHighlighter = inject(CdHighlighter);
 
   measurement$: Observable<CardMeasurement> | undefined;
   measurement: CardMeasurement = {
@@ -46,9 +43,5 @@ export class MetricContainerComponent implements OnInit {
         }))
       )
       .subscribe((value) => (this.measurement = value));
-  }
-
-  cdCheck() {
-    this.#cdHighlighter.run(this.#el);
   }
 }

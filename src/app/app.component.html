@@ -32,6 +32,10 @@
     >
       Hide Change Detection
     </button>
+
+    <button (click)="cdHighlighter.disabled = true" class="btn-primary">
+      Trigger Change Detection
+    </button>
   </div>
 
   <div class="flex flex-wrap">
@@ -41,5 +45,5 @@
       [name]="meter.name"
     ></app-metric-container>
   </div>
-  {{ cdCheck() }}
+  {{ hightlightCd() }}
 </div>

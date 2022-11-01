@@ -1,9 +1,8 @@
-import { inject, Injectable, OnInit } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Measurement } from './meaurement';
+import { Measurement } from './measurement';
 import { METERS } from './meters';
 import { Meter } from './meter';
-import { LumberjackService } from '@ngworker/lumberjack';
 import { Logger } from './logger.service';
 
 @Injectable({ providedIn: 'root' })

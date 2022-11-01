@@ -1,24 +1,17 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  inject,
-  OnInit,
-} from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { METERS } from './meters';
 import { Collector } from './collector';
-import { CdHighlighter } from './cd-hightlighter.service';
+import { BaseComponent } from './base.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styles: [':host {display: block}'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent extends BaseComponent implements OnInit {
   meters = inject(METERS);
   collector = inject(Collector);
-  #el = inject(ElementRef);
-  cdHighlighter = inject(CdHighlighter);
+
   now = new Date();
 
   ngOnInit() {
@@ -31,9 +24,5 @@ export class AppComponent implements OnInit {
 
   stop() {
     this.collector.stop();
-  }
-
-  cdCheck() {
-    this.cdHighlighter.run(this.#el);
   }
 }
