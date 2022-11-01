@@ -6404,6 +6404,11 @@ supports-preserve-symlinks-flag@^1.0.0:
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
+svg-gauge@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/svg-gauge/-/svg-gauge-1.0.7.tgz#0018cad7da3346d2508a79393f78990fb45bc5a0"
+  integrity sha512-k+tG+e6kmTvO80FFS595XzKKF6b6T2KCr5ruzfQ9udl7h72Psl18QElgBrR7ezQd7aZROBNSN7WIle/CyJVCPA==
+
 symbol-observable@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-4.0.0.tgz#5b425f192279e87f2f9b937ac8540d1984b39205"

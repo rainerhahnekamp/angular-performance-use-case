@@ -4,21 +4,29 @@ import { CardMeasurement, MetricCardComponent } from './metric-card.component';
 import { filter, map, Observable, startWith } from 'rxjs';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { BaseComponent } from './base.component';
+import { Meter } from './meter';
 
 @Component({
   selector: 'app-metric-container',
   template: `
-    <div *ngIf="measurement" class="p-4">
+    <div *ngIf="measurement && meter" class="p-4">
       {{ hightlightCd() }}
-      <h3 class="text-lg font-medium">{{ name }}</h3>
-      <app-metric-card [measurement]="measurement"></app-metric-card>
+      <h3 class="text-lg font-medium">{{ meter.name }}</h3>
+      <app-metric-card
+        [measurement]="measurement"
+        [meterConfig]="{
+          min: meter.min,
+          max: meter.max,
+          decimal: meter.decimal
+        }"
+      ></app-metric-card>
     </div>
   `,
   standalone: true,
   imports: [MetricCardComponent, NgIf, AsyncPipe],
 })
 export class MetricContainerComponent extends BaseComponent implements OnInit {
-  @Input() name = '';
+  @Input() meter: Meter | undefined;
 
   #collector = inject(Collector);
 
@@ -26,7 +34,7 @@ export class MetricContainerComponent extends BaseComponent implements OnInit {
   measurement: CardMeasurement | undefined;
 
   ngOnInit(): void {
-    if (this.name === '') {
+    if (!this.meter) {
       throw new Error('name for metric is missing');
     }
 
@@ -35,9 +43,9 @@ export class MetricContainerComponent extends BaseComponent implements OnInit {
         startWith({
           value: NaN,
           timestamp: new Date().getTime(),
-          name: this.name,
+          name: this.meter.name,
         }),
-        filter((measurement) => measurement.name === this.name),
+        filter((measurement) => measurement.name === this.meter?.name),
         map((measurement) => ({
           ...measurement,
           date: new Date(measurement.timestamp),

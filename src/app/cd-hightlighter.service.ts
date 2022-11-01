@@ -14,7 +14,7 @@ export class CdHighlighter {
       el.nativeElement.style.backgroundColor = 'coral';
       window.setTimeout(() => {
         el.nativeElement.style.background = 'white';
-      }, 250);
+      }, 100);
     });
   }
 }
