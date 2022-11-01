@@ -25,4 +25,8 @@ export class AppComponent extends BaseComponent implements OnInit {
   stop() {
     this.collector.stop();
   }
+
+  triggerCd() {
+    this.cdr.detectChanges();
+  }
 }
