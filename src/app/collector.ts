@@ -21,10 +21,12 @@ export class Collector {
       return;
     }
     this.status = 'running';
-    this.#intervalId = window.setInterval(
-      () => this.#emitEvents(),
-      1000 / this.hertz
-    );
+    this.#ngZone.runOutsideAngular(() => {
+      this.#intervalId = window.setInterval(
+        () => this.#emitEvents(),
+        1000 / this.hertz
+      );
+    });
   }
 
   stop() {

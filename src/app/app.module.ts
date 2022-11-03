@@ -9,6 +9,7 @@ import {
   LumberjackConsoleDriver,
   LumberjackConsoleDriverModule,
 } from '@ngworker/lumberjack/console-driver';
+import { ClockComponent } from './clock.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +19,7 @@ import {
     MetricContainerComponent,
     LumberjackModule.forRoot(),
     LumberjackConsoleDriverModule.forRoot(),
+    ClockComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   Input,
@@ -80,6 +81,7 @@ export class MetricCardComponent
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log('changing');
     if (this.measurement && this.gauge) {
       this.gauge.setValue(this.measurement.value);
     }

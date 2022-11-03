@@ -1,7 +1,20 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Collector } from './collector';
 import { CardMeasurement, MetricCardComponent } from './metric-card.component';
-import { filter, map, Observable, startWith } from 'rxjs';
+import {
+  bufferTime,
+  filter,
+  map,
+  mergeScan,
+  Observable,
+  startWith,
+} from 'rxjs';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { BaseComponent } from './base.component';
 import { Meter } from './meter';
@@ -34,6 +47,7 @@ export class MetricContainerComponent extends BaseComponent implements OnInit {
   measurement: CardMeasurement | undefined;
 
   ngOnInit(): void {
+    this.cdr.detach();
     if (!this.meter) {
       throw new Error('name for metric is missing');
     }
@@ -51,6 +65,13 @@ export class MetricContainerComponent extends BaseComponent implements OnInit {
           date: new Date(measurement.timestamp),
         }))
       )
-      .subscribe((value) => (this.measurement = value));
+      .subscribe((measurement) => {
+        this.measurement = measurement;
+        this.cdr.detectChanges();
+      });
+  }
+
+  info() {
+    console.log('container');
   }
 }
